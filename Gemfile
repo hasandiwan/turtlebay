@@ -33,6 +33,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use simplecov for test coverage analysis
 gem 'simplecov', :require => false, :group => :test
 
+# Use pry for console
+gem 'pry-rails', :group => :development
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
