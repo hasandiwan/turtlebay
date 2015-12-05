@@ -1,5 +1,7 @@
 class RenameItemSellerToSellerId < ActiveRecord::Migration
   def change
-    t.rename :seller, :seller_id
+    change_table :items do |t|
+      t.rename :seller, :seller_id
+    end
   end
 end
