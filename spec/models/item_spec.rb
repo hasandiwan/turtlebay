@@ -9,4 +9,10 @@ RSpec.describe Item, type: :model do
     it { should validate_presence_of :end }
   end
 
+  context "associations" do
+    it { should belong_to(:seller).class_name('User') }
+    it { should belong_to(:buyer).class_name('User') }
+    it { should have_many :bids }
+  end
+
 end
