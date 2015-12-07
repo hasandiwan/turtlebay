@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Turtlebay</title>
+  <title>Welcome to Turtlebay!</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <header class='container row'>
+    <div class='six columns'><h1>Tutrlebay</h1></div>
+    <div class='six columns'>Nav Links Go Here</div>
+  </header>
+  <div class='container'><%= yield %></div>
 </body>
 </html>
