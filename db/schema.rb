@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207040951) do
+ActiveRecord::Schema.define(version: 20151208041656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20151207040951) do
     t.string   "title",                                 null: false
     t.text     "description"
     t.decimal  "starting_bid", precision: 15, scale: 2
-    t.datetime "start",                                 null: false
-    t.datetime "end",                                   null: false
+    t.datetime "start_time",                            null: false
+    t.datetime "end_time",                              null: false
     t.integer  "seller_id",                             null: false
     t.integer  "buyer_id"
     t.datetime "created_at",                            null: false
@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 20151207040951) do
   end
 
   add_index "items", ["buyer_id"], name: "index_items_on_buyer_id", using: :btree
-  add_index "items", ["end"], name: "index_items_on_end", using: :btree
+  add_index "items", ["end_time"], name: "index_items_on_end_time", using: :btree
   add_index "items", ["seller_id"], name: "index_items_on_seller_id", using: :btree
-  add_index "items", ["start"], name: "index_items_on_start", using: :btree
+  add_index "items", ["start_time"], name: "index_items_on_start_time", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string "username",        null: false
