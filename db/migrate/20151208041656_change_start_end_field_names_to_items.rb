@@ -1,10 +1,8 @@
 class ChangeStartEndFieldNamesToItems < ActiveRecord::Migration
   def change
-    remove_index :start
-    remove_index :end
+    remove_index :items, :start
+    remove_index :items, :end
     change_table :items do |t|
-      remove_index :start
-      remove_index
       t.rename :start, :start_time
       t.rename :end, :end_time
     end
