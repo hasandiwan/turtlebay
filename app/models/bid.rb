@@ -7,8 +7,10 @@ class Bid < ActiveRecord::Base
 
   def greater_than_prev
     item = Item.find(self.item_id)
-    if self.amount <= item.bids.last.amount
-      errors.add(:invalid_bid, "You must bid higher than previous bids.")
+    unless item.bids.empty?
+      if self.amount <= item.bids.last.amount
+        errors.add(:invalid_bid, "You must bid higher than previous bids.")
+      end
     end
   end
 
@@ -17,4 +19,5 @@ class Bid < ActiveRecord::Base
       errors.add(:invalid_bid, "You cannot bid on your own items.")
     end
   end
+
 end
