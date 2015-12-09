@@ -28,9 +28,9 @@ items = Item.all
 items.each do |item|
   bid_amount = 5.00
   rand(1..15).times do
-    item.bids.build(bidder_id: rand(1..10), amount: bid_amount)
-    if item.bids.last.bidder_id == item.seller_id
-      item.bids.last.save!
+    new_bid = item.bids.build(bidder_id: rand(1..10), amount: bid_amount)
+    if new_bid.bidder != new_bid.item.seller
+      new_bid.save!
     end
     bid_amount += 5.00
   end
