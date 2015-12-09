@@ -3,12 +3,10 @@ require 'rails_helper'
 RSpec.describe Bid, type: :model do
 
   before(:each) do
-    @item = Item.create()
-    @bid = Bid.new(item_id: 1, amount: 0.50, bidder_id:1)
-  end
-
-  context "validations" do
-    it { should validate_presence_of :amount }
+    @item = Item.create(seller_id: 1, title: "Howdy", start_time: DateTime.now - 1, end_time: DateTime.now + 1)
+    @bid = Bid.create(amount: 5.00, bidder_id: 3, item_id: @item.id)
+    @lower_bid = @item.bids.build(amount: 1.00, bidder_id: 4)
+    @seller_bid = @item.bids.build(amount: 6.00, bidder_id: 1)
   end
 
   context "associations" do
@@ -16,24 +14,36 @@ RSpec.describe Bid, type: :model do
     it { should belong_to :item }
   end
 
-  context "custom validation for bid amount" do
-    it "should validate a valid bid amount" do
+  context "validations" do
 
+    xit { should validate_presence_of :amount }
+
+    it "should be invalid with a lower bid" do
+      expect(@lower_bid).to be_invalid
     end
 
-    it "should add an error message if bid is lower than previous bid" do
-
+    it "should add an appropriate error message when bid is lower" do
+      @lower_bid.valid?
+      expect( @lower_bid.errors[:invalid_bid]).to eq(["You must bid higher than previous bids."])
     end
-  end
 
-  context "custom validation for bidder" do
-    it "should validate for a bidder id that does not match the item's seller id" do
+    it "should be valid with a higher bid" do
+      @higher_bid = @item.bids.build(amount: 6.00, bidder_id: 4)
+      expect(@higher_bid).to be_valid
+    end
 
+    it "should validate whether a bidder id matches the item's seller id" do
+      @seller_bid.valid?
+      expect(@seller_bid).to be_invalid
     end
 
     it "should add an error message if bidder is the same as seller" do
-
+      @seller_bid.valid?
+      expect(@seller_bid.errors[:invalid_bid]).to eq(["You cannot bid on your own items."])
     end
+
   end
 
 end
+
+
