@@ -6,7 +6,7 @@ class Bid < ActiveRecord::Base
   validates :amount, presence: true
 
   def greater_than_prev
-    unless self.item.bids.empty?
+    unless self.item.bids.empty? || self.amount.nil?
       if self.amount <= self.item.bids.maximum(:amount)
         errors.add(:invalid_bid, "You must bid higher than previous bids.")
       end
