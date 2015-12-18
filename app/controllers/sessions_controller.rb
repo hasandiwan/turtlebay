@@ -9,8 +9,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       redirect_to '/'
+      flash[:success] = "Successfully logged in."
     else
-      @errors = ['Invalid username/password combination.']
+      flash.now[:error] = 'Invalid username/password combination.'
       render 'new'
     end
   end
@@ -18,6 +19,7 @@ class SessionsController < ApplicationController
   def destroy
     session.clear
     redirect_to '/'
+    flash[:notice] = 'You have successfully logged out.'
   end
 
 end
