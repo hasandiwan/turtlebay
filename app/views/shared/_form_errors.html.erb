@@ -1,9 +1,17 @@
-<% if @errors %>
-  <div class='container'>
+<% if flash[:error] %>
+  <div class="messages error">
     <ul>
-      <% @errors.each do |error| %>
-        <li><%= error %></li>
+      <% flash[:error].each do |error| %>
+        <li><%= error%></li>
       <% end %>
     </ul>
   </div>
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="messages notice"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:success] %>
+  <div class="messages success"><%= flash[:success] %></div>
 <% end %>
