@@ -8,8 +8,8 @@ RSpec.describe Bid, type: :model do
   let(:no_bid) { FactoryGirl.build :bid, amount: nil }
 
   context "associations" do
-    it { should belong_to(:bidder).class_name('User') }
-    it { should belong_to :item }
+    it { expect(subject).to belong_to(:bidder).class_name('User') }
+    it { expect(subject).to belong_to :item }
   end
 
   context "validations" do
