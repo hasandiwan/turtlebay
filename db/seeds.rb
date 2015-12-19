@@ -14,7 +14,7 @@ users.each do |user|
   10.times do
     user.items.build(
       title: Faker::Book.title,
-      description: Faker::Lorem.paragraphs,
+      description: Faker::Lorem.paragraph,
       start_time: Faker::Time.between(DateTime.now - 3, DateTime.now),
       end_time: Faker::Time.forward(14, :evening),
       starting_bid: rand(5.0..200.0).round(2)
