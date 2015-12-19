@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: 'welcome#index'
+  root to: 'items#index'
 
   get    'register', to: 'users#new'
   get    'login',    to: 'sessions#new'
@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   delete 'logout',   to: 'sessions#destroy'
 
   resources :users, only: [:show, :create]
-
+  resources :items, only: [:show]
 end
