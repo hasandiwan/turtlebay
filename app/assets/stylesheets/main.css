@@ -1,0 +1,36 @@
+.title {
+  text-decoration: none;
+  color: black;
+}
+
+.flash-messages {
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  color: white;
+  min-height: 60px;
+}
+
+.flash-messages ul, li {
+  margin: 0;
+}
+
+.messages {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.success {
+  border: 1px solid #03C203;
+  background-color: #89D489;
+}
+
+.notice {
+  border: 1px solid #FF8F00;
+  background-color: #FFC457;
+}
+
+.error {
+  background-color: #FF4A4A;
+  border: 1px solid #DF0000;
+}

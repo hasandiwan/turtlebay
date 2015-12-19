@@ -9,10 +9,11 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "Successfully Registered. You are now logged in."
       redirect_to '/'
+      flash[:success] = "Successfully Registered. You are now logged in."
     else
-      @errors = @user.errors.full_messages
+      errors = @user.errors.full_messages
+      error_builder(errors)
       render 'new'
     end
   end

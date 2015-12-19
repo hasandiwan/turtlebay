@@ -8,9 +8,12 @@
 </head>
 <body>
   <header class='container row'>
-    <div class='six columns'><h1>Turtlebay</h1></div>
+    <div class='six columns'><h1><a class="title" href="/">Turtlebay</a></h1></div>
     <div class='six columns'><%= render 'shared/nav_links' %></div>
   </header>
-  <div class='container'><%= yield %></div>
+  <div class='container'>
+    <div class='flash-messages'><%= render '/shared/flash_errors' %></div>
+    <%= yield %>
+  </div>
 </body>
 </html>
