@@ -6,4 +6,9 @@ class Item < ActiveRecord::Base
   validates :title, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
+
+  def open_for_bids
+    today = DateTime.now
+    self.end_time > today ? true : false
+  end
 end
