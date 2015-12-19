@@ -14,4 +14,15 @@ RSpec.describe Item, type: :model do
     it { expect(subject).to have_many :bids }
   end
 
+  describe "#open_for_bids" do
+    let(:item){ FactoryGirl.create(:item) }
+    let(:closed_item){ FactoryGirl.create(:item, start_time: DateTime.now - 5, end_time: DateTime.now - 1)}
+    it "returns true for an item open for bidding" do
+      expect(item.open_for_bids).to be true
+    end
+    it "returns false for an closed item" do
+      expect(closed_item.open_for_bids).to be false
+    end
+  end
+
 end
