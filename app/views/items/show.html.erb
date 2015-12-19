@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="six columns">
+    <img class="placeholder" src="images/placeholder.png">
+  </div>
+  <div class="six columns">
+    <h3><%= @item.title %></h3>
+    <% if @item.starting_bid %>
+      <h5>Opening Bid: <%= number_to_currency(@item.starting_bid) %></h5>
+    <% end %>
+    <% if @item.bids %>
+      <h4>Highest Bid: <%= number_to_currency(@item.bids.maximum(:amount)) %></h4>
+    <% end %>
+    <p><%= @item.description %></p>
+
+    <% if @item.open_for_bids %>
+      <h5>Bidding Closes in <%= distance_of_time_in_words(@item.end_time, DateTime.now, include_seconds: true) %></h5>
+    <% end %>
+
+    <% if logged_in? && @item.open_for_bids %>
+      <% if current_user != @item.seller %>
+        <a class="button button-primary bid-button" href="#">Bid</a>
+      <% else %>
+        <a class="button" href="#">Edit</a>
+        <a class="button" href="#">Delete</a>
+      <% end %>
+    <% else %>
+      <p><a href="/login">Login</a> to make a bid.</p>
+    <% end %>
+  </div>
+</div>
+
