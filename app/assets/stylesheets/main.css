@@ -8,11 +8,15 @@
   margin: 0 auto;
   margin-bottom: 30px;
   color: white;
-  min-height: 30px;
+  min-height: 60px;
+}
+
+.flash-messages ul, li {
+  margin: 0;
 }
 
 .messages {
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
 }
 
