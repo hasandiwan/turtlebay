@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
   end
 
   def error_builder(error_collection)
-    flash[:error] = []
+    flash.now[:error] = []
     error_collection.each do |error|
-      flash[:error] << error
+      flash.now[:error] << error
     end
   end
 
