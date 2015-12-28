@@ -20,9 +20,11 @@
       <% if current_user != @item.seller %>
         <a class="button button-primary bid-button" href="#">Bid</a>
       <% else %>
-        <a class="button" href="#">Edit</a>
+        <a class="button" href="/items/<%= @item.id %>/edit">Edit</a>
         <a class="button" href="#">Delete</a>
       <% end %>
+    <% elsif !@item.open_for_bids %>
+      <p>This item is closed.</p>
     <% else %>
       <p><a href="/login">Login</a> to make a bid.</p>
     <% end %>
