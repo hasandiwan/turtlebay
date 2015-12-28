@@ -21,7 +21,10 @@
         <a class="button button-primary bid-button" href="#">Bid</a>
       <% else %>
         <a class="button" href="/items/<%= @item.id %>/edit">Edit</a>
-        <a class="button" href="#">Delete</a>
+        <%= link_to 'Delete', item_path(@item),
+              method: :delete,
+              class: "button",
+              data: { confirm: 'Are you sure?' } %></td>
       <% end %>
     <% elsif !@item.open_for_bids %>
       <p>This item is closed.</p>
