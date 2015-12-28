@@ -2,7 +2,12 @@ require 'rails_helper'
 
 describe ItemsController do
 
-  let(:item) { FactoryGirl.create :item}
+  let(:user) { FactoryGirl.create :user}
+  let(:item) { FactoryGirl.create :item, seller: user}
+
+  before(:each) do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
 
   describe "#index" do
     it "has a 200 status code" do
@@ -41,27 +46,60 @@ describe ItemsController do
   end
 
   describe "#update" do
-    it 'updates item with valid parameters' do
-      expect {
-        patch :update, id: item.id, item: { title: 'test' }
-      }.to change { item.reload.title }.to('test')
+    context "update item with valid parameters" do
+      subject { patch :update, id: item.id, item: { title: "test" } }
+
+      it "updates item with valid parameters" do
+        expect{subject}.to change { item.reload.title }.to("test")
+      end
+
+      it "redirects after updating an item" do
+        subject
+        expect(response).to redirect_to item_path(item.id)
+      end
     end
 
-    it 'redirects after updating an item' do
-      patch :update, id: item.id, item: { title: 'test' }
-      expect(response).to redirect_to item_path(item.id)
+    context "update item with invalid parameters" do
+      subject { patch :update, id: item.id, item: { title: nil } }
+
+      it "does not update an item with invalid parameters" do
+        expect{subject}.not_to change { item.reload.title }
+      end
+
+      it "does not redirect with invalid parameters" do
+        subject
+        expect(response).to render_template("items/edit")
+      end
+
+      it "should set flash errors" do
+        subject
+        expect(flash.now[:error]).to eq(["Title can't be blank"])
+      end
     end
 
-    it 'does not update an item with invalid parameters' do
-      expect {
-        patch :update, id: item.id, item: { title: nil }
-      }.not_to change { item.reload.title }
+  end
+
+  describe "#destroy" do
+
+    context "current user is owner of item" do
+      subject { delete :destroy, {id: item.id }}
+
+      it "redirects to the root_path" do
+        expect(subject).to redirect_to(root_path)
+      end
+
+      it "should set a flash notice" do
+        subject
+        expect(flash[:notice]).to eq("You have successfully deleted your #{item.title}.")
+      end
+
+      it "deletes an item" do
+        item
+        expect{subject}.to change{ Item.count }.by(-1)
+      end
     end
 
-    it 'does not redirect with invalid parameters' do
-      patch :update, id: item.id, item: { title: nil }
-      expect(response).to render_template('items/edit')
-    end
   end
 
 end
+
