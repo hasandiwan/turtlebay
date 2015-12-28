@@ -12,8 +12,7 @@ class UsersController < ApplicationController
       redirect_to '/'
       flash[:success] = "Successfully Registered. You are now logged in."
     else
-      errors = @user.errors.full_messages
-      error_builder(errors)
+      flash.now[:error] = @user.errors.full_messages
       render 'new'
     end
   end
