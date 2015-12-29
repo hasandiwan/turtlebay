@@ -22,6 +22,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    flash[:notice] = "You have successfully deleted your #{item.title}."
+    redirect_to root_path
+  end
+
   def item_params
     params.require(:item).permit(:title, :description, :start_time, :end_time, :starting_bid)
   end
