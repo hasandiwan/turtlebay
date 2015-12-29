@@ -17,7 +17,14 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.
+    @item = Item.new(item_params)
+    @item.seller = current_user
+    if @item.save
+      redirect_to @item
+    else
+      flash.now[:error] = @item.errors.full_messages
+      render 'new'
+    end
   end
 
   def update
