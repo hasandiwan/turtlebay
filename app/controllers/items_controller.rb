@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(user_params)
+    if @item.update(item_params)
       redirect_to @item
     else
       flash.now[:error] = @item.errors.full_messages
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  def user_params
+  def item_params
     params.require(:item).permit(:title, :description, :start_time, :end_time, :starting_bid)
   end
 
