@@ -8,8 +8,23 @@ class ItemsController < ApplicationController
     render 'show'
   end
 
+  def new
+    @item = Item.new
+  end
+
   def edit
     @item = Item.find(params[:id])
+  end
+
+  def create
+    @item = Item.new(item_params)
+    @item.seller = current_user
+    if @item.save
+      redirect_to @item
+    else
+      flash.now[:error] = @item.errors.full_messages
+      render 'new'
+    end
   end
 
   def update
