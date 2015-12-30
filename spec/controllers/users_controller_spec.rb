@@ -66,4 +66,12 @@ describe UsersController do
       end
     end
   end
+
+  context "show" do
+    let(:user) { FactoryGirl.create :user }
+    it "is successful" do
+      get :show, :id => user.id
+      expect(response).to be_success
+    end
+  end
 end
