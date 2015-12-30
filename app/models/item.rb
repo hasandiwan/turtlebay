@@ -21,4 +21,17 @@ class Item < ActiveRecord::Base
     today = DateTime.now
     self.end_time > today ? true : false
   end
+
+  def self.available
+    self.where('items.start_time <= now() AND items.end_time >= now()').order(:title)
+  end
+
+  def self.scheduled
+    self.where('items.start_time > now()').order(:title)
+  end
+
+  def self.expired
+    self.where('items.end_time < now()').order(:title)
+  end
+
 end
