@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
+    @items = Item.available
   end
 
   def show

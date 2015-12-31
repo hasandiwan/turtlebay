@@ -10,6 +10,11 @@ describe ItemsController do
   end
 
   describe "#index" do
+    it "should have an index route" do
+      get :index
+      expect(response).to be_success
+    end
+
     it "has a 200 status code" do
       get :index
       expect(response.status).to eq(200)

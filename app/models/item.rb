@@ -9,6 +9,10 @@ class Item < ActiveRecord::Base
 
   validate :end_greater_than_start
 
+  scope :available, -> { where('items.start_time <= now() AND items.end_time >= now()').order(:title) }
+  scope :scheduled, -> { where('items.start_time > now()').order(:title) }
+  scope :expired,   -> { where('items.end_time < now()').order(:title) }
+
   def end_greater_than_start
     unless self.end_time.nil? || self.start_time.nil?
       if self.end_time < self.start_time
@@ -21,4 +25,5 @@ class Item < ActiveRecord::Base
     today = DateTime.now
     self.end_time > today ? true : false
   end
+
 end
