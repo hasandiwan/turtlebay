@@ -3,13 +3,13 @@
   <div class='four columns'>
     <h6>Live</h6>
     <% @user.items.available.each do |item| %>
-      <div>
+      <p>
         <%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %>
         <% if @user == current_user %>
           <%= link_to "edit", edit_item_path(item) %>
           <%= link_to "delete", item_path(item), method: :delete, data: { confirm: "Delete #{item.title}?" } %>
         <% end %>
-      </div>
+      </p>
     <% end %>
   </div>
   <div class='four columns'>
@@ -22,6 +22,31 @@
     <h6>Expired</h6>
     <% @user.items.expired.each do |item| %>
       <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
+    <% end %>
+  </div>
+</div>
+<div><h4>Auctions Bid On by <%= @user.username %></h4></div>
+<div class='row'>
+  <div class='four columns'>
+    <h6>Live</h6>
+    <% @user.bid_items.available.each do |item| %>
+      <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
+    <% end %>
+  </div>
+  <div class='four columns'>
+    <h6>Won</h6>
+    <% @user.bid_items.expired.each do |item| %>
+      <% if @user == item.top_bid.bidder %>
+        <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='four columns'>
+    <h6>Lost</h6>
+    <% @user.bid_items.expired.each do |item| %>
+      <% if @user != item.top_bid.bidder %>
+        <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
+      <% end %>
     <% end %>
   </div>
 </div>
