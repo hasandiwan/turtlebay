@@ -13,6 +13,10 @@ class Item < ActiveRecord::Base
   scope :scheduled, -> { where('items.start_time > now()').order(:title) }
   scope :expired,   -> { where('items.end_time < now()').order(:title) }
 
+  def top_bid
+    self.bids.top_bid
+  end
+
   def end_greater_than_start
     unless self.end_time.nil? || self.start_time.nil?
       if self.end_time < self.start_time
