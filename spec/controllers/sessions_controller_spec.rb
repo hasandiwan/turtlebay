@@ -25,7 +25,7 @@ describe SessionsController do
         expect(session[:user_id]).to eq(user.id)
       end
 
-      xit "redirects to the user's show route" do
+      it "redirects to the user's show route" do
         expect(subject).to redirect_to user
       end
     end
