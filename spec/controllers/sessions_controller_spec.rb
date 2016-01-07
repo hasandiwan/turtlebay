@@ -42,9 +42,9 @@ describe SessionsController do
         expect(subject).to render_template("new")
       end
 
-      xit "assigns flash message" do
+      it "assigns flash message" do
         subject
-        expect(flash.now[:alert]).not_to be_nil
+        expect(flash.now[:error]).not_to be_nil
       end
     end
   end
