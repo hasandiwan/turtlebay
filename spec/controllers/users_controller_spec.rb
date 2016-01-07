@@ -31,7 +31,7 @@ describe UsersController do
         expect(response.status).to eq(302)
       end
 
-      xit "should redirect to application root" do
+      it "should redirect to application root" do
         expect(subject).to redirect_to root_path
       end
 
