@@ -4,7 +4,7 @@ FactoryGirl.define do
     starting_bid 1.00
     start_time DateTime.now
     end_time DateTime.now + 5
-    association :seller, factory: :user
+    seller
 
     factory :item_with_bids do
       after(:create) do |item|
