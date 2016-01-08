@@ -9,4 +9,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :password, confirmation: true
   validates :password, length: { minimum: 6 }
+
+  def bid_items
+    Item.where(id: self.bids.select(:item_id).group(:item_id))
+  end
+
 end

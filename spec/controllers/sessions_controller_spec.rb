@@ -25,7 +25,7 @@ describe SessionsController do
         expect(session[:user_id]).to eq(user.id)
       end
 
-      xit "redirects to the user's show route" do
+      it "redirects to the user's show route" do
         expect(subject).to redirect_to user
       end
     end
@@ -42,9 +42,9 @@ describe SessionsController do
         expect(subject).to render_template("new")
       end
 
-      xit "assigns flash message" do
+      it "assigns flash message" do
         subject
-        expect(flash.now[:alert]).not_to be_nil
+        expect(flash.now[:error]).not_to be_nil
       end
     end
   end
