@@ -1,4 +1,6 @@
 # Create Users
+require 'open-uri'
+
 10.times {
   User.create!(
     username: Faker::Internet.user_name,
@@ -27,7 +29,8 @@ users.each do |user|
       description: Faker::Lorem.paragraph,
       start_time: start_time,
       end_time: end_time,
-      starting_bid: rand(1.0...5.0).round(2)
+      starting_bid: rand(1.0...5.0).round(2),
+      image: open('https://placeimg.com/400/400/any')
     )
   end
 end
