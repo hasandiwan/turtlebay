@@ -4,6 +4,8 @@ describe ItemsController do
 
   let(:user) { FactoryGirl.create :user}
   let(:item) { FactoryGirl.create :item, seller: user}
+  let(:valid_item_attrs) { FactoryGirl.build(:item).attributes }
+  let(:invalid_item_attrs) { FactoryGirl.build(:item, title: nil ).attributes }
 
   before(:each) do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -38,6 +40,18 @@ describe ItemsController do
     end
   end
 
+  describe "#new" do
+    it "has a 200 status code" do
+      get :new
+      expect(response.status).to eq(200)
+    end
+
+    it "renders the new template" do
+      get :new
+      expect(response).to render_template("new")
+    end
+  end
+
   describe "#edit" do
     it "has a 200 status code" do
       get :edit, id: item.id
@@ -47,6 +61,40 @@ describe ItemsController do
     it "renders the edit template" do
       get :edit, id: item.id
       expect(response).to render_template("edit")
+    end
+  end
+
+  describe "#create" do
+    context "create item with valid parameters" do
+      subject { post :create, :item => valid_item_attrs }
+
+      it 'creates a item from valid parameters' do
+        expect{subject}.to change{ Item.count }.by(1)
+      end
+
+      it 'redirects after creating a item' do
+        subject
+        expect(response).to redirect_to :action => :show,
+                                        :id => assigns(:item).id
+      end
+    end
+
+    context "create item with invalid parameters" do
+      subject { post :create, { item: invalid_item_attrs } }
+
+      it 'does not create a item with invalid parameters' do
+        expect{subject}.not_to change{Item.count}
+      end
+
+      it 'renders new template after recieving an invalid item' do
+        subject
+        expect(response).to render_template("new")
+      end
+
+      it "should set flash errors" do
+        subject
+        expect(flash.now[:error]).to eq(["Title can't be blank"])
+      end
     end
   end
 
