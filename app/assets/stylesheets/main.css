@@ -3,10 +3,8 @@
   color: black;
 }
 
-.placeholder {
-  height: 400px;
+.item-img {
   width: 100%;
-  background-color: #C3C3C3;
 }
 
 .bid-button {
