@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   belongs_to :seller, class_name: "User"
-  belongs_to :buyer, class_name: "User"
-  has_many :bids
+  belongs_to :top_bid, class_name: "Bid", foreign_key: "top_bid"
+  has_many   :bids
 
   validates :title, presence: true
   validates :start_time, presence: true
@@ -12,10 +12,6 @@ class Item < ActiveRecord::Base
   scope :available, -> { where('items.start_time <= now() AND items.end_time >= now()').order(:title) }
   scope :scheduled, -> { where('items.start_time > now()').order(:title) }
   scope :expired,   -> { where('items.end_time < now()').order(:title) }
-
-  def top_bid
-    self.bids.top_bid
-  end
 
   def end_greater_than_start
     unless self.end_time.nil? || self.start_time.nil?

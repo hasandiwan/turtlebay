@@ -5,7 +5,10 @@ class Bid < ActiveRecord::Base
   validate :greater_than_prev, :seller_is_not_bidder
   validates :amount, presence: true
 
-  scope :top_bid, -> { order(amount: :desc).first }
+  after_create do
+    self.item.top_bid = self
+    self.item.save
+  end
 
   def greater_than_prev
     unless self.item.bids.maximum(:amount).nil? || self.amount.nil?

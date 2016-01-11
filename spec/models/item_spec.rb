@@ -12,7 +12,7 @@ RSpec.describe Item, type: :model do
 
   context "associations" do
     it { expect(subject).to belong_to(:seller).class_name('User') }
-    it { expect(subject).to belong_to(:buyer).class_name('User') }
+    it { expect(subject).to belong_to(:top_bid).class_name('Bid') }
     it { expect(subject).to have_many :bids }
   end
 
