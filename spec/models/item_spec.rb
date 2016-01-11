@@ -3,11 +3,21 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
 
   let(:item) { FactoryGirl.create :item }
+  let(:invalid_item){ FactoryGirl.build(:item, start_time: DateTime.now, end_time: DateTime.now - 1)}
 
   context "validations" do
     it { expect(item).to validate_presence_of :title }
     it { expect(item).to validate_presence_of :start_time }
     it { expect(item).to validate_presence_of :end_time }
+
+    it "should be valid when end time occurs after start time" do
+      expect(item.valid?).to be true
+    end
+
+    it "should be invalid if end time occurs before start time" do
+      invalid_item.valid?
+      expect(invalid_item.errors.messages).to include(:end_time => ["item must end after the start time"])
+    end
   end
 
   context "associations" do
