@@ -36,7 +36,7 @@
   <div class='four columns'>
     <h6>Won</h6>
     <% @user.bid_items.expired.each do |item| %>
-      <% if @user == item.top_bid.bidder %>
+      <% if !(item.top_bid.nil?) && (@user == item.top_bid.bidder) %>
         <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
       <% end %>
     <% end %>
@@ -44,7 +44,7 @@
   <div class='four columns'>
     <h6>Lost</h6>
     <% @user.bid_items.expired.each do |item| %>
-      <% if @user != item.top_bid.bidder %>
+      <% if (item.top_bid.nil?) || (@user != item.top_bid.bidder) %>
         <p><%= link_to "#{item.title} (#{number_to_currency(item.starting_bid)})", item_path(item) %></p>
       <% end %>
     <% end %>
