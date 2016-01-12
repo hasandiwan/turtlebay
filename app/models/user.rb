@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
     Item.where(id: self.bids.select(:item_id).group(:item_id))
   end
 
+  def to_param
+    "#{id}-#{username.parameterize}"
+  end
+
 end
