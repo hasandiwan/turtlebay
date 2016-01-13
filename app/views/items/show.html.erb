@@ -18,7 +18,7 @@
 
     <% if logged_in? && @item.open_for_bids %>
       <% if current_user != @item.seller %>
-        <%= link_to "Bid", new_bid_path(:item => @item.id), class: "button button-primary bid-button" %>
+        <%= link_to "Bid", new_item_bid_path(@item), class: "button button-primary bid-button" %>
       <% else %>
         <a class="button" href="/items/<%= @item.id %>/edit">Edit</a>
         <%= link_to 'Delete', item_path(@item),
