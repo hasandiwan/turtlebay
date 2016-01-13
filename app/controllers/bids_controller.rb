@@ -1,13 +1,13 @@
 class BidsController < ApplicationController
+  before_action :find_item, only: [:new, :create]
+
   def new
-    @item = Item.find(params[:item])
     @bid = Bid.new
   end
 
   def create
     @bid = Bid.new(bid_params)
     @bid.bidder = current_user
-    @item = @bid.item
     if @bid.save
       redirect_to @item
     else
@@ -20,6 +20,10 @@ class BidsController < ApplicationController
 
   def bid_params
     params.require(:bid).permit(:amount, :bidder_id, :item_id)
+  end
+
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 
 end
