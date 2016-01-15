@@ -2,7 +2,7 @@
   <div class="twelve columns">
     <h3>Bid on <%= @item.title %></h3>
     <p>Current highest bid: <%= number_to_currency(@item.top_bid.amount) %></p>
-    <%= form_for @bid do |f| %>
+    <%= form_for [@item, @bid] do |f| %>
       <%= f.label :amount %>
       $ <%= f.text_field :amount, :placeholder => bid_placeholder(@item) %><br />
 

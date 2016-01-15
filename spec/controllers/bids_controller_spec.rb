@@ -14,19 +14,19 @@ describe BidsController do
 
   describe "#new" do
     it "has a 200 status code" do
-      get :new, :item => item
+      get :new, :item_id => item.id
       expect(response.status).to eq(200)
     end
 
     it "renders the new template" do
-      get :new, :item => item
+      get :new, :item_id => item.id
       expect(response).to render_template("new")
     end
   end
 
   describe "#create" do
     context "create bid with valid parameters" do
-      subject { post :create, { bid: valid_bid_attrs } }
+      subject { post :create, { bid: valid_bid_attrs, :item_id => item.id } }
 
       it 'creates a bid from valid parameters' do
         expect{subject}.to change{Bid.count}.by(1)
@@ -39,7 +39,7 @@ describe BidsController do
     end
 
     context "create bid with invalid parameters" do
-      subject { post :create, { bid: invalid_bid_attrs } }
+      subject { post :create, { bid: invalid_bid_attrs, :item_id => item.id } }
 
       it 'does not create a bid with invalid parameters' do
         expect{subject}.not_to change{Bid.count}
