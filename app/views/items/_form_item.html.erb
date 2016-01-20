@@ -1,22 +1,35 @@
-<%= form_for @item, url: items_path, html: { multipart: true } do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %><br />
 
-  <%= f.label :image %>
-  <%= f.file_field :image %><br />
+  <div class="row">
+    <div class="six columns">
+      <div class="img-section">
+        <% if @item.image %>
+        <%= image_tag @item.image.url, class: "item-img" %>
+        <% end %>
+        <div class="upload-img">
+          <%= f.file_field :image, id:"file", class: "inputfile" %><br />
+          <label class="file-btn" for="file">Choose a file</label>
+        </div>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %><br />
+      </div>
+    </div>
+    <div class="six columns">
+      <%= f.label :title %>
+      <%= f.text_field :title %><br />
 
-  <%= f.label :start_time %>
-  <%= f.date_field :start_time %><br />
+      <%= f.label :description %>
+      <%= f.text_field :description %><br />
 
-  <%= f.label :end_time %>
-  <%= f.date_field :end_time %><br />
+      <%= f.label :start_time %>
+      <%= f.date_field :start_time %><br />
 
-  <%= f.label :starting_bid %>
-  $ <%= f.text_field :starting_bid, :placeholder => "0.00" %><br />
+      <%= f.label :end_time %>
+      <%= f.date_field :end_time %><br />
 
-  <%= f.submit :class => 'button button-primary'%>
-<% end %>
-<a class="button" href="/">Cancel</a>
+      <%= f.label :starting_bid %>
+      $ <%= f.text_field :starting_bid, :placeholder => "0.00" %><br />
+
+      <%= f.submit :class => 'button button-primary'%>
+      <a class="button" href="/">Cancel</a>
+    </div>
+  </div>
+
