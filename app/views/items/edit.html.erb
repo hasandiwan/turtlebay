@@ -1,7 +1,10 @@
 <div class="row">
   <div class="twelve columns">
     <h3>Edit Your Item</h3>
-    <%= render partial: "form_item" %>
   </div>
 </div>
+<%= form_for @item, url: item_path(@item), html: { method: "patch", multipart: true } do |f| %>
+  <%= render partial: "form_item", locals: { f: f } %>
+<% end %>
+
 
