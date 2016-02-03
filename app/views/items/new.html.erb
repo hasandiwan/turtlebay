@@ -1,8 +1,9 @@
 <div class="row">
   <div class="twelve columns">
     <h3>Auction a New Item</h3>
-    <%= render partial: "form_item" %>
   </div>
 </div>
-
+<%= form_for @item, url: items_path, html: { multipart: true } do |f| %>
+  <%= render partial: "form_item", locals: { f: f } %>
+<% end %>
 
