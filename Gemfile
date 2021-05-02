@@ -57,3 +57,4 @@ end
 group :development, :production do
   gem 'pg'
 end
+gem 'bitpay-sdk', :require => 'bitpay_sdk'
