@@ -22,11 +22,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem "paperclip"
-gem 'mimemagic'
-gem 'paperclip-imgur'
-# OmniAuth Google
-gem 'omniauth-google-oauth2'
 # Use Thin as the app server
 gem 'thin'
 
